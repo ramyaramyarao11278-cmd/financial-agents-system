@@ -1,0 +1,38 @@
+version: 1
+formatters:
+  default:
+    # Use the same format as our application logger
+    format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    # time.strftime() doesn't support %f, use default format
+  access:
+    # Access log format - using Uvicorn's default fields
+    format: "%(asctime)s - uvicorn.access - INFO - %(message)s"
+    # time.strftime() doesn't support %f, use default format
+handlers:
+  console:
+    class: logging.StreamHandler
+    formatter: default
+    stream: ext://sys.stdout
+    level: INFO
+  access_console:
+    class: logging.StreamHandler
+    formatter: access
+    stream: ext://sys.stdout
+    level: INFO
+loggers:
+  uvicorn:
+    level: INFO
+    handlers: [console]
+    propagate: no
+  uvicorn.error:
+    level: INFO
+    handlers: [console]
+    propagate: no
+  uvicorn.access:
+    level: INFO
+    handlers: [access_console]
+    propagate: no
+root:
+  level: INFO
+  handlers: [console]
+  propagate: no

@@ -1,0 +1,42 @@
+# Local environments and editor settings
+.venv/
+.env
+.env.*
+!.env.example
+.idea/
+.trae/
+.python-version
+
+# Python cache and test artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+build/
+dist/
+
+# Local runtime files
+.__financial_agents.lock
+*.db
+*.db-*
+*.sqlite*
+*.log
+*.log.*
+response.json
+
+# Generated outputs and model artifacts
+outputs/
+fin_agents_system/backend/outputs/
+fin_agents_system/backend/ppo_tensorboard/
+fin_agents_system/backend/prediction_plot.png
+fin_agents_system/backend/prediction_results.csv
+fin_agents_system/backend/model_metrics.csv
+fin_agents_system/backend/新建 文本文档.txt
+*.weights.h5
+
+# Keep only source-like files under documents by default
+documents/*
+!documents/*.md
+!documents/*.py

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>金融智能分析系统</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 头部 -->
+        <header>
+            <div class="logo-section">
+                <h1><i class="fas fa-chart-line"></i> 金融智能分析系统</h1>
+                <div class="last-update">最后更新: <span id="updateTime">刚刚</span></div>
+            </div>
+            <div class="status-indicator">
+                <div class="status-dot"></div>
+                <span>系统运行中</span>
+            </div>
+        </header>
+        
+        <div class="main-content">
+            <!-- 第一列：历史分析记录、智能体工作流程和分析参数设置 -->
+            <div class="column">
+                <!-- 历史分析记录 -->
+                <div class="card history-card">
+                    <div class="card-header">
+                        <h2 class="card-title"><i class="fas fa-history"></i> 历史分析记录</h2>
+                    </div>
+                    <div class="history-list">
+                        <div id="history-content">
+                            <p>暂无历史记录</p>
+                        </div>
+                    </div>
+                    <div class="export-buttons">
+                        <button class="btn btn-primary" id="exportResults"><i class="fas fa-download"></i> 导出结果</button>
+                        <button class="btn btn-secondary" id="downloadReport"><i class="fas fa-file-pdf"></i> 下载报告</button>
+                    </div>
+                </div>
+                
+                <!-- 智能工作流程 -->
+                <div class="card workflow-card">
+                    <div class="card-header">
+                        <h2 class="card-title"><i class="fas fa-sitemap"></i> 智能工作流程</h2>
+                    </div>
+                    <div class="workflow-steps" id="workflowSteps">
+                        <div class="step" id="step1"><i class="fas fa-check-circle"></i> 数据工程师</div>
+                        <div class="step" id="step2"><i class="fas fa-check-circle"></i> 情感分析师</div>
+                        <div class="step" id="step3"><i class="fas fa-check-circle"></i> 技术分析师</div>
+                        <div class="step" id="step4"><i class="fas fa-check-circle"></i> 回测验证</div>
+                        <div class="step" id="step5"><i class="fas fa-check-circle"></i> 结果存储</div>
+                    </div>
+                </div>
+                
+                <!-- 分析参数设置 -->
+                <div class="card params-card">
+                    <div class="card-header">
+                        <h2 class="card-title"><i class="fas fa-cog"></i> 分析参数设置</h2>
+                    </div>
+                    <form id="workflowForm">
+                        <div class="param-group">
+                            <div class="param-label">数据源 URL:</div>
+                            <div class="url-display">
+                                <input type="url" id="url" name="url" required placeholder="请输入数据源地址" value="">
+                            </div>
+                        </div>
+                        
+                        <div class="param-group">
+                            <div class="param-label">时间范围:</div>
+                            <div class="time-options">
+                                <span class="time-option active" data-value="7d">7天</span>
+                                <span class="time-option" data-value="1m">1个月</span>
+                                <span class="time-option" data-value="3m">3个月</span>
+                                <span class="time-option" data-value="1y">1年</span>
+                                <span class="time-option" data-value="2y">2年</span>
+                            </div>
+                        </div>
+                        
+                        <div class="param-group">
+                            <div class="param-label">时间间隔:</div>
+                            <div class="time-options">
+                                <span class="time-option active" data-value="1d">1天</span>
+                                <span class="time-option" data-value="1w">1周</span>
+                                <span class="time-option" data-value="1m">1月</span>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn run-button" id="submitBtn"><i class="fas fa-play-circle"></i> 运行分析</button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- 第二列：情感分析结果和分析报告 -->
+            <div class="column">
+                <!-- 分析状态 -->
+                <div class="analysis-status" id="analysisStatus" style="display: none;">
+                    <i class="fas fa-sync-alt"></i>
+                    <div>
+                        <h3>正在分析中...</h3>
+                        <p id="loadingText">数据工程师正在处理数据。</p>
+                    </div>
+                </div>
+                
+                <!-- 情感分析结果 -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title"><i class="fas fa-chart-pie"></i> 情感分析结果</h2>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="sentimentChart"></canvas>
+                    </div>
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-label">总体情感得分</div>
+                            <div class="metric-value metric-positive" id="sentimentScore">0.00</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">情感分类</div>
+                            <div class="metric-value metric-positive" id="sentimentType">等待数据...</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">正面条目</div>
+                            <div class="metric-value" id="positiveCount">0</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">中性条目</div>
+                            <div class="metric-value" id="neutralCount">0</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">负面条目</div>
+                            <div class="metric-value" id="negativeCount">0</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 生成报告 -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title"><i class="fas fa-file-alt"></i> 分析报告</h2>
+                    </div>
+                    <div class="report-content" id="reportContent">
+                        <p>请输入参数并点击"运行分析"按钮生成报告</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 第三列：投资组合净值走势 -->
+            <div class="column">
+                <!-- 投资组合净值走势 -->
+                <div class="card finance-card">
+                    <div class="card-header">
+                        <h2 class="card-title"><i class="fas fa-chart-line"></i> 投资组合净值走势</h2>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="portfolioChart"></canvas>
+                    </div>
+                    
+                    <!-- 交易信号时间线 -->
+                    <div class="signals-timeline">
+                        <h3><i class="fas fa-bell"></i> 交易信号</h3>
+                        <div id="signals-list">
+                            <!-- 信号将通过JavaScript动态生成 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
