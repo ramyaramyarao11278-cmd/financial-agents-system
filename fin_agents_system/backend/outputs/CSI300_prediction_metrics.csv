@@ -1,0 +1,9 @@
+﻿symbol,task,metric,value
+CSI300,price_regression,MAE,144.53872081065512
+CSI300,price_regression,RMSE,181.56208178828174
+CSI300,price_regression,R2,0.5219490095142288
+CSI300,price_regression,MAPE,3.9392075612668718
+CSI300,trend_classification,Accuracy,0.5239786856127886
+CSI300,trend_classification,Precision,0.4861111111111111
+CSI300,trend_classification,Recall,0.5384615384615384
+CSI300,trend_classification,F1,0.5109489051094891

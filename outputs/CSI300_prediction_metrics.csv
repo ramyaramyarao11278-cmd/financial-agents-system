@@ -1,0 +1,13 @@
+﻿symbol,task,metric,value
+CSI300,return_regression,MAE,0.017317729459911176
+CSI300,return_regression,MSE,0.0005504024360319736
+CSI300,return_regression,RMSE,0.02346065719522737
+CSI300,return_regression,R2,-0.17591156928379115
+CSI300,return_regression,MAPE,297.85727278666093
+CSI300,trend_classification,Accuracy,0.5433628318584071
+CSI300,trend_classification,Balanced_Accuracy,0.513226114970301
+CSI300,trend_classification,Precision,0.6363636363636364
+CSI300,trend_classification,Recall,0.05303030303030303
+CSI300,trend_classification,F1,0.0979020979020979
+CSI300,trend_classification,AUC_ROC,0.5442464512231954
+CSI300,trend_classification,Threshold,0.5150000000000001

@@ -1,0 +1,8 @@
+task,metric,value
+price_regression,MAE,43.45181842650709
+price_regression,RMSE,46.86964833677789
+price_regression,R2,-3.364023084411836
+trend_classification,Accuracy,0.8333333333333334
+trend_classification,Precision,0.75
+trend_classification,Recall,1.0
+trend_classification,F1,0.8571428571428571
